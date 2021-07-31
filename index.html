@@ -240,8 +240,13 @@
                 expires: 1
             })
             db.collection("visits").doc(today).update({
-                [Cookies.get('session_id')]: navigator.userAgent
-            })
+                    [Cookies.get('session_id')]: navigator.userAgent
+                })
+                .catch((e) => {
+                    db.collection("visits").doc(today).set({
+                        [Cookies.get('session_id')]: navigator.userAgent
+                    })
+                })
         }
 
         // email-collection
